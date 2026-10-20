@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LingoPlay — So‘z pleyer va test</title><meta name="color-scheme" content="dark">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--bg:#0B1020;--ac:#6366F1;--ac2:#06B6D4;--tx:#F8FAFC;--mu:#94A3B8;--gl:rgba(255,255,255,.05);--bd:rgba(255,255,255,.1);color-scheme:dark;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 Manrope,system-ui,sans-serif;overflow-x:hidden}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);opacity:.33;z-index:-1;animation:fl 14s ease-in-out infinite alternate}
+.o1{width:420px;height:420px;background:var(--ac);top:-120px;left:-100px}.o2{width:380px;height:380px;background:var(--ac2);bottom:-100px;right:-80px;animation-delay:-6s}
+@keyframes fl{to{transform:translate(60px,40px) scale(1.15)}}
+nav{position:sticky;top:0;z-index:50;padding-top:env(safe-area-inset-top,0px);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(11,16,32,.7);border-bottom:1px solid var(--bd)}
+.nb{max-width:1080px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.logo{font-weight:800;font-size:19px;display:flex;gap:9px;align-items:center;color:var(--tx);text-decoration:none}
+.logo i{width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;font-style:normal;font-size:14px}
+.nl{display:flex;gap:2px;flex-wrap:wrap}.nl a{color:var(--mu);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;font-size:14px}.nl a:hover{color:var(--tx);background:var(--gl)}
+.ct{max-width:1080px;margin:auto;padding:0 20px}
+.hero{text-align:center;padding:70px 0 30px}
+.pill{display:inline-block;padding:6px 14px;border:1px solid var(--bd);border-radius:99px;background:var(--gl);color:var(--ac2);font-size:13px;font-weight:700}
+h1{font-size:clamp(34px,7vw,64px);line-height:1.05;margin:20px 0 16px;font-weight:800;letter-spacing:-.03em}
+.gt{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:560px;margin:0 auto 24px;color:var(--mu);font-size:18px}
+.btn{border:1px solid var(--bd);background:var(--gl);color:var(--tx);border-radius:14px;padding:11px 18px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:.25s;text-decoration:none;display:inline-block}
+.btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}.btn.p{border:0;background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:0 10px 30px rgba(99,102,241,.4)}
+.btn.s{padding:6px 11px;font-size:13px;border-radius:10px}.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+section{padding:30px 0}h2{font-size:30px;margin:0 0 6px;letter-spacing:-.02em}.sb{color:var(--mu);margin:0 0 20px}
+.card{background:var(--gl);border:1px solid var(--bd);border-radius:22px;padding:22px;margin-bottom:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.3s}
+.card:hover{border-color:rgba(99,102,241,.45);box-shadow:0 20px 50px rgba(0,0,0,.3)}.card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:var(--mu);font-size:15px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.g3,.g2{grid-template-columns:1fr}}
+.ic{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(6,182,212,.3));display:grid;place-items:center;font-size:20px;margin-bottom:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}.row>*{flex:1 1 140px}.row .btn{flex:0 0 auto}
+input[type=text],input[type=file],select{width:100%;font:inherit;font-size:15px;padding:11px 13px;border-radius:12px;border:1px solid var(--bd);background:rgba(255,255,255,.06);color:var(--tx);outline:0}
+input:focus,select:focus{border-color:var(--ac)}select option{background:#151b33}label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--mu);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.now{border-radius:24px;padding:30px 18px;text-align:center;background:linear-gradient(135deg,rgba(99,102,241,.9),rgba(6,182,212,.85));box-shadow:0 20px 60px rgba(99,102,241,.35);margin-bottom:16px;min-height:180px;display:flex;flex-direction:column;justify-content:center}
+.now .w{font-size:clamp(26px,5vw,40px);font-weight:800;word-break:break-word}.now .w.d{opacity:.6;font-size:24px}
+.bar{height:5px;background:rgba(255,255,255,.25);border-radius:9px;margin-top:16px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#fff;transition:width .4s}
+.ctr{display:flex;justify-content:center;gap:14px;align-items:center;margin-bottom:16px}.ctr .btn{width:50px;height:50px;padding:0;border-radius:50%;font-size:18px}.ctr .btn.big{width:70px;height:70px;font-size:24px}
+.badge{font-size:12px;font-weight:700;color:var(--ac2);background:rgba(6,182,212,.12);padding:4px 10px;border-radius:99px}
+ol{list-style:none;margin:10px 0 0;padding:0;max-height:340px;overflow:auto}
+li{display:grid;grid-template-columns:36px 1fr 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:12px;cursor:pointer;font-size:15px}
+li:hover{background:var(--gl)}li.cur{background:rgba(99,102,241,.2);outline:1px solid var(--ac)}li em{font-style:normal;color:var(--mu);font-size:12px}
+.ib{background:0;border:0;color:var(--mu);cursor:pointer;font-size:15px;padding:4px 7px;border-radius:8px}.ib:hover{background:var(--bd);color:var(--tx)}
+.opt{display:block;width:100%;text-align:left;margin-bottom:10px;padding:14px 16px;border-radius:14px;border:1px solid var(--bd);background:var(--gl);color:var(--tx);font:inherit;font-weight:600;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ac)}.opt.ok{background:rgba(16,185,129,.2);border-color:#10b981}.opt.no{background:rgba(239,68,68,.2);border-color:#ef4444}
+.qw{font-size:clamp(28px,6vw,44px);font-weight:800;text-align:center;margin:8px 0 18px}.qm{color:var(--mu);font-size:13px;font-weight:600;margin-bottom:8px}
+.res{text-align:center}.res .pc{font-size:56px;font-weight:800}
+.bk{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)}.bk a{color:var(--ac2);font-weight:700}
+canvas{max-width:100%;height:auto;border-radius:14px;margin-top:12px}
+.warn{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#fcd34d;border-radius:12px;padding:10px 12px;font-size:13px}
+footer{border-top:1px solid var(--bd);margin-top:40px;padding:36px 0 26px;background:rgba(255,255,255,.02)}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}@media(max-width:700px){.fg{grid-template-columns:1fr}}
+footer h4{margin:0 0 10px;font-size:14px}footer a{display:block;color:var(--mu);text-decoration:none;font-size:14px;padding:3px 0}footer p{color:var(--mu);font-size:14px;max-width:340px;margin:8px 0 0}
+.cp{margin-top:26px;padding-top:16px;border-top:1px solid var(--bd);color:var(--mu);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+[hidden]{display:none!important}
+</style></head><body>
+<div class="orb o1"></div><div class="orb o2"></div>
+<nav><div class="nb"><a class="logo" href="#top"><i>♪</i>LingoPlay</a>
+<div class="nl"><a href="#player">Pleyer</a><a href="#lugat">Lug‘at</a><a href="#test">Test</a><a href="#kitob">Kitoblar</a><a href="#jamoa">Jamoa</a><a href="#admin">Admin</a></div></div></nav>
+<div class="ct" id="top">
+<div class="hero"><span class="pill">✨ Ingliz · O‘zbek · Asoschisi: Azizbek Butunboyev</span>
+<h1>So‘zlarni <span class="gt">eshitib</span> o‘rganing</h1>
+<p>Tayyor umumiy lug‘at (<b id="gc">0</b> ta so‘z) bor. Xohlasangiz o‘z Excel faylingizni yuklang, u qurilmangizda eslab qolinadi.</p>
+<div class="cta"><a class="btn p" href="#player">▶ Boshlash</a><a class="btn" href="#test">🎯 Test</a><a class="btn" href="#kitob">📚 Kitoblar</a></div></div>
+<div class="g3"><div class="card"><div class="ic">📖</div><h3>1. Lug‘at tanlang</h3><p>Umumiy lug‘at yoki o‘zingizning faylingiz.</p></div>
+<div class="card"><div class="ic">🎧</div><h3>2. Tinglang</h3><p>So‘zlar navbat bilan ovoz chiqarib o‘qiladi.</p></div>
+<div class="card"><div class="ic">🏆</div><h3>3. Diplom oling</h3><p>Testdan keyin natijangizga mos diplom beriladi.</p></div></div>
+
+<section id="player"><h2>Pleyer</h2><p class="sb">So‘zlar navbat bilan o‘qiladi.</p>
+<div class="card"><div class="g2"><label>Lug‘at manbasi<select id="src"><option value="g">Umumiy lug‘at</option><option value="m">Mening lug‘atim</option></select></label>
+<label>O‘z Excel/CSV faylingiz (1-ustun inglizcha, 2-ustun o‘zbekcha)<input type="file" id="fi" accept=".xlsx,.xls,.csv"></label></div>
+<div class="row"><button class="btn s" id="clr">🗑 Mening lug‘atimni o‘chirish</button><button class="btn s" id="sh">🔀 Aralashtirish</button></div></div>
+<div class="now"><div class="w" id="n1">—</div><div class="w d" id="n2"></div><div class="bar"><i id="pg"></i></div></div>
+<div class="ctr"><button class="btn" id="pv">⏮</button><button class="btn p big" id="play">▶</button><button class="btn" id="nx">⏭</button></div>
+<div class="card"><div class="g3"><label>Tezlik<input type="range" id="rate" min=".5" max="1.4" step=".1" value=".9"></label><label>Pauza<input type="range" id="ps" min="0" max="3" step=".2" value=".6"></label>
+<label>O‘zbek ovozi<select id="vu"></select></label></div><div class="warn" id="warn" hidden style="margin-top:12px">Qurilmangizda o‘zbek ovozi yo‘q, shuning uchun boshqa ovoz ishlatiladi. Eng yaxshi talaffuz uchun kompyuterda Microsoft Edge’dan foydalaning.</div></div></section>
+
+<section id="lugat"><div class="row" style="justify-content:space-between"><div><h2>Lug‘at</h2><p class="sb" style="margin:0">So‘zni bosing — shundan o‘qiladi.</p></div><span class="badge" id="cn">0</span></div>
+<div class="card" style="margin-top:14px"><div id="ep" class="sb" style="text-align:center">Lug‘at bo‘sh.</div><ol id="lst"></ol></div></section>
+
+<section id="test"><h2>Test</h2><p class="sb">Tanlangan lug‘atdan tuziladi.</p>
+<div class="card" id="t0"><div class="g2"><label>Savollar soni<select id="tn"><option value="10">10</option><option value="20">20</option><option value="30">30</option><option value="all">Hammasi</option></select></label><label>Yo‘nalish<select id="td"><option value="eu">Inglizcha → O‘zbekcha</option><option value="ue">O‘zbekcha → Inglizcha</option></select></label></div>
+<button class="btn p" id="tgo" style="margin-top:14px;width:100%">🎯 Testni boshlash</button><p class="sb" id="tm" style="margin:8px 0 0"></p></div>
+<div class="card" id="t1" hidden><div class="qm" id="qn"></div><div class="qw" id="qw"></div><div id="qo"></div><button class="btn p" id="qx" hidden style="width:100%"></button></div>
+<div class="card res" id="t2" hidden><div class="pc gt" id="pc"></div><h3 id="rt"></h3><p id="rs"></p>
+<div class="row"><input type="text" id="nm" placeholder="Diplom uchun ismingiz"><button class="btn p" id="dg">🏆 Diplom olish</button></div>
+<canvas id="cv" width="1200" height="850" hidden></canvas>
+<div class="row" style="justify-content:center"><button class="btn p" id="dl" hidden>⬇ Diplomni yuklab olish</button><button class="btn" id="ag">↻ Qayta urinish</button></div></div></section>
+
+<section id="kitob"><h2>Kitoblar</h2><p class="sb">Admin yuklagan elektron kitoblar.</p><div class="card"><div id="bl" class="sb">Hozircha kitob yo‘q.</div></div></section>
+
+<section id="admin"><h2>Admin</h2><p class="sb">Umumiy lug‘at va kitoblarni boshqarish.</p>
+<div class="card" id="alock"><h3>🔒 Admin kirishi</h3><div class="row"><input type="text" id="au" placeholder="Login" autocomplete="username"><input type="text" id="ap" placeholder="Parol" autocomplete="current-password" style="-webkit-text-security:disc"><button class="btn p" id="ago">Kirish</button></div><p class="sb" id="am" style="margin:0"></p></div>
+<div id="apan" hidden>
+<div class="card"><h3>Umumiy lug‘at (<span id="dc">0</span> ta)</h3><p>Excel qo‘shing, keraksiz so‘zlarni ✕ bilan o‘chiring, keyin “Hammaga saqlash” ni bosing. Eng ko‘pi 4000 ta.</p>
+<div class="row"><input type="file" id="gf" accept=".xlsx,.xls,.csv"><button class="btn p" id="gs">💾 Hammaga saqlash</button><button class="btn" id="gc2">Hammasini tozalash</button></div><p class="sb" id="gm"></p><ol id="dl2"></ol></div>
+<div class="card"><h3>Kitob qo‘shish</h3><div class="row"><input type="text" id="bt" placeholder="Kitob nomi"><input type="text" id="ba" placeholder="Muallif"></div>
+<div class="row"><input type="file" id="bf" accept=".pdf,.epub,.txt"><button class="btn p" id="bu">Yuklash</button></div><p class="sb" id="bs"></p></div>
+<div class="card"><h3>Jamoa a’zosi qo‘shish</h3><div class="row"><input type="text" id="tnm" placeholder="Ism familiya"><input type="text" id="trl" placeholder="Vazifasi"><button class="btn p" id="tad">Qo‘shish</button></div><button class="btn s" id="out">Admindan chiqish</button></div></div></section>
+<section id="jamoa"><h2>Jamoa</h2><p class="sb">Loyihada ishlaganlar.</p><div class="g3" id="tm2"><div class="card"><h3>Azizbek Butunboyev</h3><p>Asoschisi</p></div></div></section>
+</div>
+<footer><div class="ct"><div class="fg"><div><a class="logo" href="#top"><i>♪</i>LingoPlay</a><p>Ingliz va o‘zbek so‘zlarini eshitib o‘rganish uchun pleyer, test va diplomlar.</p><p><b>Asoschisi: Azizbek Butunboyev</b></p></div>
+<div><h4>Bo‘limlar</h4><a href="#player">Pleyer</a><a href="#test">Test</a><a href="#kitob">Kitoblar</a></div><div><h4>Boshqa</h4><a href="#admin">Admin</a><a href="#top">Yuqoriga ↑</a></div></div>
+<div class="cp"><span>© 2026 LingoPlay · Azizbek Butunboyev</span><span>Ovozlar qurilmangizda ishlaydi.</span></div></div></footer>
+<script>
+const $=i=>document.getElementById(i),S=window.speechSynthesis;
+let G=[],M=[],D=[],db=null,assets=null,dlc=null,isA=false,I=0,tok=0,play=false,Q=[],qi=0,sc=0,pct=0,V=[];
+try{M=JSON.parse(localStorage.getItem("lp_m")||"[]")}catch(e){}
+const act=()=>$("src").value==="g"?G:M,sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function toast(m){alert(m)}
+function voices(){V=S?S.getVoices():[];const s=$("vu");s.innerHTML="";V.forEach(v=>{const o=document.createElement("option");o.value=v.voiceURI;o.textContent=v.name+" · "+v.lang;s.appendChild(o)});
+ const u=V.find(v=>/^uz/i.test(v.lang))||V.find(v=>/^tr/i.test(v.lang))||V.find(v=>/^ru/i.test(v.lang));if(u)s.value=u.voiceURI;$("warn").hidden=!V.length||V.some(v=>/^uz/i.test(v.lang))}
+if(S){voices();S.onvoiceschanged=voices}
+function say(t,l){return new Promise(r=>{if(!S||!t)return r();const u=new SpeechSynthesisUtterance(t);u.rate=+$("rate").value;
+ if(l==="en"){const v=V.find(x=>/^en/i.test(x.lang));if(v)u.voice=v;u.lang="en-US"}else{const v=V.find(x=>x.voiceURI===$("vu").value);if(v){u.voice=v;u.lang=v.lang}}
+ u.onend=u.onerror=()=>r();S.speak(u)})}
+function show(){const a=act(),w=a[I];document.querySelectorAll("li.cur").forEach(e=>e.classList.remove("cur"));if(!w){$("n1").textContent="—";$("n2").textContent="";$("pg").style.width=0;return}
+ $("n1").textContent=w.e;$("n2").textContent=w.u;$("pg").style.width=((I+1)/a.length*100)+"%";const li=$("w"+I);if(li){li.classList.add("cur");li.parentNode.scrollTo({top:li.offsetTop-80,behavior:"smooth"})}}
+async function loop(){const m=++tok;play=true;$("play").textContent="⏸";
+ while(play&&m===tok&&act().length){show();const w=act()[I];await say(w.e,"en");if(m!==tok)return;await sleep($("ps").value*1000);if(m!==tok)return;await say(w.u,"uz");if(m!==tok)return;await sleep($("ps").value*1000);if(m!==tok)return;I=(I+1)%act().length}}
+function stop(){play=false;tok++;S&&S.cancel();$("play").textContent="▶"}
+$("play").onclick=()=>{if(!act().length)return toast("Lug‘at bo‘sh");play?stop():loop()};
+const go=d=>{const n=act().length;if(!n)return;I=(I+d+n)%n;show();if(play){S.cancel();loop()}};$("nx").onclick=()=>go(1);$("pv").onclick=()=>go(-1);
+$("sh").onclick=()=>{stop();const a=shuf(act());act().splice(0,a.length,...a);I=0;render()};
+function render(){const a=act(),ol=$("lst");ol.innerHTML="";$("cn").textContent=a.length+" ta";$("ep").hidden=a.length>0;
+ a.slice(0,4000).forEach((w,i)=>{const li=document.createElement("li");li.id="w"+i;li.innerHTML="<em>"+(i+1)+"</em><span></span><span></span><b></b>";const s=li.querySelectorAll("span");s[0].textContent=w.e;s[1].textContent=w.u;
+ if($("src").value==="m"){const x=document.createElement("button");x.className="ib";x.textContent="✕";x.onclick=e=>{e.stopPropagation();M.splice(i,1);saveM();render()};li.lastChild.appendChild(x)}
+ li.onclick=()=>{I=i;show();stop();loop()};ol.appendChild(li)});show()}
+function saveM(){try{localStorage.setItem("lp_m",JSON.stringify(M))}catch(e){}}
+$("src").onchange=()=>{stop();I=0;render()};
+function parse(f){return new Promise(res=>{const r=new FileReader();r.onload=e=>{try{const wb=XLSX.read(e.target.result,{type:"array"});let rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:""});
+ rows=rows.filter(x=>String(x[0]).trim()&&String(x[1]).trim());if(rows.length&&/^(english|inglizcha|en)$/i.test(String(rows[0][0]).trim()))rows.shift();res(rows.map(x=>({e:String(x[0]).trim(),u:String(x[1]).trim()})))}catch(x){res([])}};r.readAsArrayBuffer(f)})}
+$("fi").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const w=(await parse(f)).slice(0,4000);if(!w.length)return toast("Faylda so‘zlar topilmadi");M=w;saveM();stop();I=0;$("src").value="m";render();toast(w.length+" ta so‘z yuklandi va qurilmangizda saqlandi")};
+$("clr").onclick=()=>{M=[];saveM();if($("src").value==="m"){stop();I=0}render()};
+$("tgo").onclick=()=>{const a=act();if(a.length<4){$("tm").textContent="Test uchun kamida 4 ta so‘z kerak.";return}
+ Q=shuf(a).slice(0,$("tn").value==="all"?a.length:Math.min(+$("tn").value,a.length));qi=0;sc=0;$("t0").hidden=true;$("t2").hidden=true;$("t1").hidden=false;ask();$("t1").scrollIntoView({behavior:"smooth",block:"center"})};
+function ask(){const w=Q[qi],a=act(),k=$("td").value==="eu"?["e","u"]:["u","e"];$("qn").textContent="Savol "+(qi+1)+" / "+Q.length;$("qw").textContent=w[k[0]];$("qx").hidden=true;
+ const o=shuf([w,...shuf(a.filter(x=>x[k[1]].toLowerCase()!==w[k[1]].toLowerCase())).slice(0,3)]),b=$("qo");b.innerHTML="";
+ o.forEach(x=>{const n=document.createElement("button");n.className="opt";n.textContent=x[k[1]];n.onclick=()=>{b.querySelectorAll(".opt").forEach(y=>{y.disabled=true;if(y.textContent===w[k[1]])y.classList.add("ok")});if(x===w)sc++;else n.classList.add("no");$("qx").hidden=false;$("qx").textContent=qi===Q.length-1?"Natijani ko‘rish":"Keyingi →"};b.appendChild(n)})}
+$("qx").onclick=()=>{qi++;qi<Q.length?ask():fin()};
+const lvl=p=>p>=90?["OLTIN DIPLOM","#F5C542","a’lo natija"]:p>=75?["KUMUSH DIPLOM","#CBD5E1","yuqori natija"]:p>=60?["BRONZA DIPLOM","#CD7F32","yaxshi natija"]:["ISHTIROK SERTIFIKATI","#6366F1","faol ishtirok"];
+function fin(){pct=Math.round(sc/Q.length*100);$("t1").hidden=true;$("t2").hidden=false;$("cv").hidden=true;$("dl").hidden=true;$("pc").textContent=pct+"%";$("rt").textContent=lvl(pct)[0];$("rs").textContent=sc+" ta to‘g‘ri, "+(Q.length-sc)+" ta xato (jami "+Q.length+")"}
+$("ag").onclick=()=>{$("t2").hidden=true;$("t0").hidden=false};
+$("dg").onclick=()=>{const n=$("nm").value.trim();if(!n)return toast("Ismingizni kiriting");const[t,col,sub]=lvl(pct),c=$("cv"),x=c.getContext("2d");
+ const g=x.createLinearGradient(0,0,1200,850);g.addColorStop(0,"#0B1020");g.addColorStop(1,"#1e2a55");x.fillStyle=g;x.fillRect(0,0,1200,850);
+ x.strokeStyle=col;x.lineWidth=8;x.strokeRect(30,30,1140,790);x.lineWidth=2;x.strokeRect(50,50,1100,750);x.textAlign="center";x.fillStyle=col;
+ x.font="800 60px sans-serif";x.fillText(t,600,190);x.fillStyle="#94A3B8";x.font="26px sans-serif";x.fillText("Ushbu hujjat quyidagi shaxsga topshiriladi",600,270);
+ x.fillStyle="#F8FAFC";x.font="800 70px sans-serif";x.fillText(n,600,390);x.fillStyle="#94A3B8";x.font="28px sans-serif";x.fillText("LingoPlay lug‘at testida "+sub+" ko‘rsatgani uchun",600,470);
+ x.fillStyle=col;x.font="800 110px sans-serif";x.fillText(pct+"%",600,620);x.fillStyle="#94A3B8";x.font="22px sans-serif";x.fillText(new Date().toLocaleDateString("uz-UZ")+" · LingoPlay asoschisi: Azizbek Butunboyev",600,750);c.hidden=false;$("dl").hidden=false};
+$("dl").onclick=()=>$("cv").toBlob(async b=>{try{if(dlc)await dlc.save({filename:"lingoplay-diplom.png",data:b});else{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="lingoplay-diplom.png";a.click()}}catch(e){}});
+const HASH="5532e68a9e8ed47bf68c87b84faf68ba658d4720af6beafdd8979d90f0b7d7dd";
+function setA(v){isA=v;$("alock").hidden=v;$("apan").hidden=!v;try{v?sessionStorage.setItem("lp_a","1"):sessionStorage.removeItem("lp_a")}catch(e){}if(db){books();team()}}
+async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+$("ago").onclick=async()=>{const h=await sha($("au").value.trim().toLowerCase()+":"+$("ap").value);if(h===HASH){$("am").textContent="";setA(true)}else $("am").textContent="Login yoki parol noto‘g‘ri"};
+$("ap").onkeydown=e=>{if(e.key==="Enter")$("ago").click()};$("out").onclick=()=>setA(false);
+try{if(sessionStorage.getItem("lp_a")){isA=true;$("alock").hidden=true;$("apan").hidden=false}}catch(e){}
+async function team(){const box=$("tm2");box.innerHTML="";const f=document.createElement("div");f.className="card";f.innerHTML="<h3>Azizbek Butunboyev</h3><p>Asoschisi</p>";box.appendChild(f);if(!db)return;
+ const s=await db.collection("team").get();s.docs.forEach(d=>{const k=d.data(),c=document.createElement("div"),h=document.createElement("h3"),p=document.createElement("p");c.className="card";h.textContent=k.name;p.textContent=k.role||"";c.append(h,p);
+ if(isA){const x=document.createElement("button");x.className="ib";x.textContent="✕";x.onclick=async()=>{await db.doc("team/"+d.id).delete();team()};c.appendChild(x)}box.appendChild(c)})}
+$("tad").onclick=async()=>{const n=$("tnm").value.trim();if(!n)return toast("Ismni kiriting");if(!db)return toast("Baza ulanmagan. Saytni claude.ai havolasi orqali, hisobingizga kirib oching.");try{await db.collection("team").add({name:n,role:$("trl").value.trim()});$("tnm").value=$("trl").value="";team()}catch(e){toast("Saqlab bo‘lmadi")}};
+// Shared data
+async function books(){const l=$("bl");if(!db)return;const s=await db.collection("books").get();if(s.empty){l.textContent="Hozircha kitob yo‘q.";return}l.innerHTML="";
+ s.docs.forEach(d=>{const k=d.data(),r=document.createElement("div");r.className="bk";const t=document.createElement("div"),a=document.createElement("a");t.textContent=k.title+(k.author?" — "+k.author:"");a.textContent="Ochish";a.href=k.url;a.target="_blank";a.rel="noopener";r.append(t,a);
+ if(isA){const x=document.createElement("button");x.className="ib";x.textContent="✕";x.onclick=async()=>{await db.doc("books/"+d.id).delete();books()};r.appendChild(x)}l.appendChild(r)})}
+async function dict(){const s=await db.collection("dict").get();G=[];s.docs.sort((a,b)=>a.id<b.id?-1:1).forEach(d=>G.push(...(d.data().w||[])));D=G.slice();$("gc").textContent=G.length;if(!G.length&&M.length)$("src").value="m";render();drender()}
+function drender(){const ol=$("dl2");ol.innerHTML="";$("dc").textContent=D.length;D.forEach((w,i)=>{const li=document.createElement("li");li.innerHTML="<em>"+(i+1)+"</em><span></span><span></span><b></b>";const s=li.querySelectorAll("span");s[0].textContent=w.e;s[1].textContent=w.u;
+ const x=document.createElement("button");x.className="ib";x.textContent="✕";x.onclick=()=>{D.splice(i,1);drender()};li.lastChild.appendChild(x);ol.appendChild(li)})}
+$("gf").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const w=await parse(f),seen=new Set(D.map(x=>(x.e+"|"+x.u).toLowerCase()));
+ w.forEach(x=>{const k=(x.e+"|"+x.u).toLowerCase();if(!seen.has(k)&&D.length<4000){seen.add(k);D.push(x)}});$("gm").textContent=w.length+" ta so‘z qo‘shildi. Keraksizini ✕ bilan o‘chiring, so‘ng saqlang.";drender()};
+$("gc2").onclick=()=>{D=[];drender()};
+$("gs").onclick=async()=>{if(!db)return $("gm").textContent="Baza ulanmagan. Saytni claude.ai havolasi orqali, hisobingizga kirib oching.";$("gm").textContent="Saqlanmoqda...";try{const old=await db.collection("dict").get();for(const d of old.docs)await db.doc("dict/"+d.id).delete();
+ for(let i=0;i*400<D.length;i++)await db.doc("dict/c"+String(i).padStart(3,"0")).set({w:D.slice(i*400,i*400+400)});G=D.slice();$("gc").textContent=G.length;render();$("gm").textContent="Saqlandi: "+G.length+" ta so‘z hamma uchun ochiq."}catch(x){$("gm").textContent="Saqlab bo‘lmadi"}};
+$("bu").onclick=async()=>{const f=$("bf").files[0],t=$("bt").value.trim();if(!f||!t)return $("bs").textContent="Nom va fayl kerak";if(!db||!assets)return $("bs").textContent="Baza ulanmagan. Saytni claude.ai havolasi orqali, hisobingizga kirib oching (yuklab olingan fayl bilan ishlamaydi).";$("bs").textContent="Yuklanmoqda...";
+ try{const r=await assets.upload(f);await db.collection("books").add({title:t,author:$("ba").value.trim(),url:r.url});$("bs").textContent="Qo‘shildi";$("bt").value=$("ba").value="";books()}catch(e){$("bs").textContent="Yuklab bo‘lmadi (20 MB gacha)"}};
+render();
+(async()=>{if(!window.claude)return;try{const u=await claude.use("user");db=await claude.use("db");assets=await claude.use("assets");dlc=await claude.use("downloads");
+ if(u&&(await u.isOwner()||await u.canEdit())){isA=true;$("alock").hidden=true;$("apan").hidden=false}
+ if(db){await dict();await books();await team()}}catch(e){}})();
+</script></body></html>
