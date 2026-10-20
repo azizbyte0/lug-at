@@ -196,4 +196,27 @@ $("gs").onclick=async()=>{if(!sb)return $("gm").textContent=NO;$("gm").textConte
  G=D.slice();$("gc").textContent=G.length;render();$("gm").textContent="Saqlandi: "+G.length+" ta so‘z hamma uchun ochiq."}catch(x){$("gm").textContent="Saqlab bo‘lmadi: "+(x.message||x)}};
 
 render();team();if(sb){dict();books()}
-</script></body></html>
+</<script>
+const SUPABASE_URL = "SUPABASE_URLINGIZ";
+const SUPABASE_KEY = "PUBLISHABLE_KEYINGIZ";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function lugatlarniYuklash() {
+  const { data, error } = await db
+    .from("lugatlar")
+    .select("*");
+
+  if (error) {
+    console.error("Xato:", error.message);
+    return;
+  }
+
+  console.log("Bazadagi lug‘atlar:", data);
+}
+
+lugatlarniYuklash();
+</script>></body></html>
